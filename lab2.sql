@@ -1,3 +1,47 @@
+CREATE TABLE movies
+(
+    movie_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    title VARCHAR(200) NOT NULL,
+
+    release_year INTEGER NOT NULL
+        CHECK (release_year BETWEEN 1900 AND 2100),
+
+    duration_minutes INTEGER
+        CHECK (duration_minutes > 0),
+
+    country VARCHAR(100),
+
+    language VARCHAR(100),
+
+    budget NUMERIC(15,2)
+        CHECK (budget >= 0),
+
+    revenue NUMERIC(15,2)
+        CHECK (revenue >= 0),
+
+    created_at TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP
+);
+COMMENT ON TABLE movies IS
+'Stores basic movie information';
+CREATE TABLE persons
+(
+    person_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    person_name VARCHAR(150) NOT NULL,
+
+    birth_date DATE,
+
+    country VARCHAR(100)
+);
+CREATE TABLE genres
+(
+    genre_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    genre_name VARCHAR(50)
+        UNIQUE NOT NULL
+);
 CREATE TABLE movie_genres
 (
     movie_id BIGINT NOT NULL,
